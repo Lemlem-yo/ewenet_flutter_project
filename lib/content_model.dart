@@ -10,7 +10,7 @@ class UnbordingContent {
 List<UnbordingContent> contents = [
   UnbordingContent(
     title: 'አራት ኪሎ Podcast',
-    image: 'assets/images/podcast.svg',
+    image: 'assets/images/4kilo_logo.png',
     discription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
         "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
         "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
@@ -33,8 +33,8 @@ List<UnbordingContent> contents = [
 
   ),
   UnbordingContent(
-      title: 'online_article',
-      image: 'assets/images/4kilo_logo.svg',
+      title: 'Interviews',
+      image: 'assets/images/podcast.svg',
       discription: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. "
           "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. "
           "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."

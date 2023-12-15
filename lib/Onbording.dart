@@ -3,6 +3,36 @@ import 'package:arat_kilo/content_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+/*
+   * SvgOrPngImage: Its statlesswidget
+   * No parameter take
+   * Its work distingush the file is svg or png and take the approprate widgets
+   */
+
+class SvgOrPngImage extends StatelessWidget {
+  final String imagePath;
+
+  SvgOrPngImage({required this.imagePath});
+
+  @override
+  Widget build(BuildContext context) {
+    if (imagePath.toLowerCase().endsWith('.svg')) {
+      return SvgPicture.asset(
+        imagePath,
+        height: 200.0,
+      );
+    } else if (imagePath.toLowerCase().endsWith('.png')) {
+      return Image.asset(
+        imagePath,
+        height: 200.0,
+      );
+    } else {
+      return Text('Unsupported Image Format');
+    }
+  }
+}
+
+
 class Onbording extends StatefulWidget {
   const Onbording({super.key});
 
@@ -11,6 +41,7 @@ class Onbording extends StatefulWidget {
 }
 
 class _OnbordingState extends State<Onbording> {
+
 //
 int currentIndex = 0;
 late PageController _controller;
@@ -75,10 +106,8 @@ late PageController _controller;
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            SvgPicture.asset(
-                              contents[index].image,
-                              height: 200,
-                            ),
+                            SvgOrPngImage(imagePath: contents[index].image)
+
                           ],
                         ),
                       ),
