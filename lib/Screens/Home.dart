@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:http/http.dart' as http;
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key});
@@ -9,10 +12,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String _name = '';
-  String _email = '';
-  List<String> _selectedRoles = [];
-  bool _notifyMe = false;
+  TextEditingController  _name = TextEditingController();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _phonNumber = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(50.0),
@@ -55,9 +57,10 @@ class _HomePageState extends State<HomePage> {
                       ),
                       SizedBox(height: 20),
                       TextFormField(
-                        onChanged: (value) {
+                         controller: _name,
+                        onChanged: (_name) {
                           setState(() {
-                            _name = value;
+                            _name = _name;
                           });
                         },
                         validator: (value) {
@@ -70,26 +73,27 @@ class _HomePageState extends State<HomePage> {
                           label: const Text("Name"),
                           hintText: 'Enter your name',
                           hintStyle: const TextStyle(
-                            color: Colors.black26,
+                            color: Color(0xFF12A19A),
                           ),
                           border: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: Colors.black12,
+                              color:Color(0xFF12A19A),
                             ),
                             borderRadius: BorderRadius.circular(40),
                           ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12,
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF12A19A),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       TextFormField(
-                        onChanged: (value) {
+                        controller: _email,
+                        onChanged: (_email) {
                           setState(() {
-                            _email = value;
+                            _email = _email;
                           });
                         },
                         validator: (value) {
@@ -102,83 +106,90 @@ class _HomePageState extends State<HomePage> {
                           label: const Text("Email"),
                           hintText: 'Enter Email',
                           hintStyle: const TextStyle(
-                            color: Colors.black26,
+                            color: Color(0xFF12A19A),
                           ),
                           border: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color: Colors.black12,
+                              color: Color(0xFF12A19A),
                             ),
                             borderRadius: BorderRadius.circular(40),
                           ),
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Colors.black12,
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF12A19A),
                             ),
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
-                      Text('Select Role(s):'),
-                      CheckboxListTile(
-                        title: Text('Author'),
-                        value: _selectedRoles.contains('Author'),
-                        onChanged: (value) {
-                          _updateSelectedRoles('Author', value!);
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _phonNumber ,
+                        onChanged: (_phoneNumber) {
+                          setState(() {
+                            _phonNumber = _phonNumber;
+                          });
                         },
-                      ),
-                      CheckboxListTile(
-                        title: Text('Reader'),
-                        value: _selectedRoles.contains('Reader'),
-                        onChanged: (value) {
-                          _updateSelectedRoles('Reader', value!);
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter phone number';
+                          }
+                          return null;
                         },
-                      ),
-                      CheckboxListTile(
-                        title: Text('Poemer'),
-                        value: _selectedRoles.contains('Poemer'),
-                        onChanged: (value) {
-                          _updateSelectedRoles('Poemer', value!);
-                        },
-                      ),
-                      CheckboxListTile(
-                        title: Text('Other'),
-                        value: _selectedRoles.contains('Other'),
-                        onChanged: (value) {
-                          _updateSelectedRoles('Other', value!);
-                        },
-                      ),
-                      SizedBox(height: 20),
-                      Row(
-                        children: [
-                          Text('Notify me:'),
-                          Switch(
-                            value: _notifyMe,
-                            onChanged: (value) {
-                              setState(() {
-                                _notifyMe = value;
-                              });
-                            },
+                        decoration: InputDecoration(
+                          label: const Text("phone number"),
+                          hintText: 'Enter phone number',
+                          hintStyle: const TextStyle(
+                            color: Color(0xFF12A19A),
                           ),
-                        ],
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFF12A19A),
+                            ),
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF12A19A),
+                            ),
+                          ),
+                        ),
                       ),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
+
+                      const SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       ElevatedButton(
                         onPressed: () {
                           _submitForm();
+                          print("register");
                         },
-                        child: Text('Register'),
+                        child: const Text('Notify Me',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF12A19A)
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             ClipRect(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
-                  Text('Follow us on social media:'),
+                  const Center(
+                    child: Text('Follow us on social media:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        fontSize: 20
+                      ),
+                    ),
+                  ),
                   SizedBox(height: 8),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -212,21 +223,34 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void _updateSelectedRoles(String role, bool selected) {
-    setState(() {
-      if (selected) {
-        _selectedRoles.add(role);
-      } else {
-        _selectedRoles.remove(role);
-      }
-    });
-  }
+  Future<void> _submitForm() async {
+   //
+    String name = _name.text;
+    String email = _email.text;
+    String phoneNumber = _phonNumber.text;
+    //
 
-  void _submitForm() {
-    // Add your logic to handle form submission
-    print('Name: $_name');
-    print('Email: $_email');
-    print('Roles: $_selectedRoles');
-    print('Notify Me: $_notifyMe');
+    String apiUrl = 'http://127.0.0.1:3000/signup';
+    // construct the user data
+    Map<String, String> userData = {
+      'name': name,
+      'email': email,
+      'phoneNUmber': phoneNumber
+    };
+    //Convert the user data to the JSON file
+    String jsonData = jsonEncode(userData);
+    //
+    try{
+      //Make a post request to the nestjs API
+      var response = await http.post(
+        Uri.parse(apiUrl),
+          headers: {'Content-Type': 'application/json'},
+        body: jsonData
+      );
+    }catch(error){
+      print('Error submitting form: $error');
+    }
+
+
   }
 }

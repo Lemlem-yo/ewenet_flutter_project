@@ -78,102 +78,100 @@ late PageController _controller;
           ),
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: PageView.builder(
-              controller: _controller,
-              itemCount: contents.length,
-                onPageChanged: (int index){
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height / 1.3, // Adjust the height as needed
+              child: PageView.builder(
+                controller: _controller,
+                itemCount: contents.length,
+                onPageChanged: (int index) {
                   setState(() {
                     currentIndex = index;
                   });
                 },
-                itemBuilder: (BuildContext context, int index){
+                itemBuilder: (BuildContext context, int index) {
                   return Column(
                     children: [
                       Container(
                         width: MediaQuery.of(context).size.width,
                         height: 300,
                         decoration: const BoxDecoration(
-                            color: Color(0xFFede8e8),
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(200),
-                              bottomRight: Radius.circular(10)
-
-                            )
+                          color: Color(0xFFede8e8),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(200),
+                            bottomRight: Radius.circular(10),
+                          ),
                         ),
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            SvgOrPngImage(imagePath: contents[index].image)
-
+                            SvgOrPngImage(imagePath: contents[index].image),
                           ],
                         ),
                       ),
-                      SizedBox(height: 30,),
-                       Text(
+                      SizedBox(height: 30),
+                      Text(
                         contents[index].title,
-                          style: const TextStyle(
-                            fontSize: 35,
-                            fontWeight: FontWeight.bold,
-
-                          ),
-
-                    ),
-                     Padding(
-                        padding:  EdgeInsets.all(40),
-                        child:  Text(
-                            contents[index].discription,
+                        style: const TextStyle(
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.all(40),
+                        child: Text(
+                          contents[index].discription,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
-                          fontSize: 18,
-                          color: Colors.grey
-                        )
+                            fontSize: 18,
+                            color: Colors.grey,
+                          ),
                         ),
                       ),
                     ],
                   );
                 },
-            ),
-          ),
-          Container(
-             child: Row(
-               mainAxisAlignment: MainAxisAlignment.center,
-               children: List.generate(contents.length, (index) => buildDot(index, context)),
-             ),
-          ),
-          Container(
-            height: 55,
-            margin: EdgeInsets.all(40),
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Color(0xFF12A19A),
-              borderRadius: BorderRadius.circular(15), // Adjust the radius as needed
-            ),
-            child: TextButton(
-              onPressed: () {
-                if(currentIndex == contents.length - 1){
-                  Navigator.push(context,
-                      MaterialPageRoute(
-                          builder: (_)=> HomePage()));
-
-                }
-                _controller.nextPage(duration: Duration(milliseconds: 100), curve: Curves.bounceIn,);
-              },
-              child:  Text(
-                currentIndex == contents.length - 1 ? "Continue": "Next",
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 20
-                ),
-
               ),
             ),
-          )
-        ],
+            const SizedBox(height: 0,),
+            Container(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: List.generate(contents.length, (index) => buildDot(index, context)),
+              ),
+            ),
+            Container(
+              height: 55,
+              margin: EdgeInsets.all(40),
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Color(0xFF12A19A),
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: TextButton(
+                onPressed: () {
+                  if (currentIndex == contents.length - 1) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => HomePage()),
+                    );
+                  }
+                  _controller.nextPage(duration: Duration(milliseconds: 100), curve: Curves.bounceIn);
+                },
+                child: Text(
+                  currentIndex == contents.length - 1 ? "Continue" : "Next",
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
-
     );
   }
 
