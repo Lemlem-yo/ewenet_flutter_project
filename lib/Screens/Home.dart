@@ -16,6 +16,8 @@ class _HomePageState extends State<HomePage> {
   TextEditingController _email = TextEditingController();
   TextEditingController _phonNumber = TextEditingController();
   TextEditingController _describrole = TextEditingController();
+  TextEditingController _sex = TextEditingController();
+  TextEditingController _age = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -210,6 +212,85 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _sex,
+                        onChanged: (_sex) {
+                          setState(() {
+                            _sex = _sex;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter Your Role here';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          label: const Text(
+                            "Sex/Gender:"
+                            "\n(eg.Female or Male,)",
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          hintText: 'Enter Your sex/Gender',
+                          hintStyle: const TextStyle(
+                            color: Colors.grey,
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFF12A19A),
+                            ),
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF12A19A),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      TextFormField(
+                        controller: _age,
+                        onChanged: (_age) {
+                          setState(() {
+                            _age = _age;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter Your Role here';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          label: const Text(
+                            "Age",
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          hintText: 'Enter Your Age',
+                          hintStyle: const TextStyle(
+                            color: Colors.grey,
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFF12A19A),
+                            ),
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF12A19A),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       const SizedBox(height: 20),
                       const SizedBox(height: 20),
                       const SizedBox(height: 20),
@@ -285,7 +366,7 @@ class _HomePageState extends State<HomePage> {
     String phoneNumber = _phonNumber.text;
     //
 
-    String apiUrl = 'http://127.0.0.1:3000/signup';
+    String apiUrl = 'http://192.168.42.172:3000/registration/register';
     // construct the user data
     Map<String, String> userData = {
       'name': name,
