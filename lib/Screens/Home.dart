@@ -12,9 +12,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController  _name = TextEditingController();
+  TextEditingController _name = TextEditingController();
   TextEditingController _email = TextEditingController();
   TextEditingController _phonNumber = TextEditingController();
+  TextEditingController _describrole = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       SizedBox(height: 20),
                       TextFormField(
-                         controller: _name,
+                        controller: _name,
                         onChanged: (_name) {
                           setState(() {
                             _name = _name;
@@ -70,14 +71,19 @@ class _HomePageState extends State<HomePage> {
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: const Text("Name"),
+                          label: const Text(
+                            "Name",
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
                           hintText: 'Enter your name',
                           hintStyle: const TextStyle(
-                            color: Color(0xFF12A19A),
+                            color: Colors.grey,
                           ),
                           border: OutlineInputBorder(
                             borderSide: const BorderSide(
-                              color:Color(0xFF12A19A),
+                              color: Color(0xFF12A19A),
                             ),
                             borderRadius: BorderRadius.circular(40),
                           ),
@@ -103,10 +109,15 @@ class _HomePageState extends State<HomePage> {
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: const Text("Email"),
-                          hintText: 'Enter Email',
+                          label: const Text(
+                            "E-mail",
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          hintText: 'Enter E-mail',
                           hintStyle: const TextStyle(
-                            color: Color(0xFF12A19A),
+                            color: Colors.grey,
                           ),
                           border: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -123,7 +134,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       const SizedBox(height: 20),
                       TextFormField(
-                        controller: _phonNumber ,
+                        controller: _phonNumber,
                         onChanged: (_phoneNumber) {
                           setState(() {
                             _phonNumber = _phonNumber;
@@ -136,10 +147,15 @@ class _HomePageState extends State<HomePage> {
                           return null;
                         },
                         decoration: InputDecoration(
-                          label: const Text("phone number"),
+                          label: const Text(
+                            "Phone Number",
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
                           hintText: 'Enter phone number',
                           hintStyle: const TextStyle(
-                            color: Color(0xFF12A19A),
+                            color: Colors.grey,
                           ),
                           border: OutlineInputBorder(
                             borderSide: const BorderSide(
@@ -155,7 +171,46 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const SizedBox(height: 20),
-
+                      TextFormField(
+                        controller: _describrole,
+                        onChanged: (_describrole) {
+                          setState(() {
+                            _describrole = _describrole;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter Your Role here';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                          label: const Text(
+                            "Describe Your Role:"
+                            "\n(eg. author,podcast hoster,)",
+                            style: TextStyle(
+                              color: Colors.grey,
+                            ),
+                          ),
+                          hintText: 'Enter Your Role',
+                          hintStyle: const TextStyle(
+                            color: Colors.grey,
+                          ),
+                          border: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Color(0xFF12A19A),
+                            ),
+                            borderRadius: BorderRadius.circular(40),
+                          ),
+                          enabledBorder: const OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0xFF12A19A),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       const SizedBox(height: 20),
                       const SizedBox(height: 20),
                       ElevatedButton(
@@ -163,12 +218,12 @@ class _HomePageState extends State<HomePage> {
                           _submitForm();
                           print("register");
                         },
-                        child: const Text('Notify Me',
+                        child: const Text(
+                          'Notify Me',
                           style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Color(0xFF12A19A)
-                          ),
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF12A19A)),
                         ),
                       ),
                     ],
@@ -182,12 +237,12 @@ class _HomePageState extends State<HomePage> {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   const Center(
-                    child: Text('Follow us on social media:',
+                    child: Text(
+                      'Follow us on social media:',
                       style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        fontSize: 20
-                      ),
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          fontSize: 20),
                     ),
                   ),
                   SizedBox(height: 8),
@@ -224,7 +279,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _submitForm() async {
-   //
+    //
     String name = _name.text;
     String email = _email.text;
     String phoneNumber = _phonNumber.text;
@@ -240,17 +295,12 @@ class _HomePageState extends State<HomePage> {
     //Convert the user data to the JSON file
     String jsonData = jsonEncode(userData);
     //
-    try{
+    try {
       //Make a post request to the nestjs API
-      var response = await http.post(
-        Uri.parse(apiUrl),
-          headers: {'Content-Type': 'application/json'},
-        body: jsonData
-      );
-    }catch(error){
+      var response = await http.post(Uri.parse(apiUrl),
+          headers: {'Content-Type': 'application/json'}, body: jsonData);
+    } catch (error) {
       print('Error submitting form: $error');
     }
-
-
   }
 }
