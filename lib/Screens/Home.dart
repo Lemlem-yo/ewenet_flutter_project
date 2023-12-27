@@ -1,25 +1,22 @@
 import 'dart:convert';
-import 'package:arat_kilo/Screens/SecondPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
+import 'SecondPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key});
-
-
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  //
-   String valueChoose = '';
-  List listItem = [
+  String valueChoose = '';
+  List<String> listItem = [
     'Author',
-    'Pod cast hoster',
-    'reader',
+    'Podcast hoster',
+    'Reader',
   ];
   TextEditingController _name = TextEditingController();
   TextEditingController _email = TextEditingController();
@@ -27,23 +24,22 @@ class _HomePageState extends State<HomePage> {
   TextEditingController _describRole = TextEditingController();
   TextEditingController _sex = TextEditingController();
   TextEditingController _age = TextEditingController();
-  //
-   @override
-   void initState() {
-     super.initState();
-     _name = TextEditingController();
-     _email = TextEditingController();
-     _phoneNumber = TextEditingController();
-     _describRole = TextEditingController();
-     _sex = TextEditingController();
-     _age = TextEditingController();
-   }
 
+  @override
+  void initState() {
+    super.initState();
+    _name = TextEditingController();
+    _email = TextEditingController();
+    _phoneNumber = TextEditingController();
+    _describRole = TextEditingController();
+    _sex = TextEditingController();
+    _age = TextEditingController();
+  }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF12A19A),
+      backgroundColor: const Color(0xFF12A19A),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -118,254 +114,52 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _email,
-                        onChanged: (value) {
-                          setState(() {
-                            _email.text = value;
-                          });
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter Email';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          label: const Text(
-                            "Email",
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          hintText: 'Enter Email',
-                          hintStyle: const TextStyle(
-                            color: Colors.grey,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFF12A19A),
-                            ),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF12A19A),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _phoneNumber,
-                        keyboardType: TextInputType.phone,
-                        onChanged: (value) {
-                          setState(() {
-                            _phoneNumber.text = value;
-                          });
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter phone number';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          label: const Text(
-                            "Phone number",
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          hintText: 'Enter phone number',
-                          hintStyle: const TextStyle(
-                            color: Colors.grey,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFF12A19A),
-                            ),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF12A19A),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _sex,
-                        onChanged: (value) {
-                          setState(() {
-                            _sex.text = value;
-                          });
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return '';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          label: const Text(
-                            "Sex/Gender:"
-                                "\n(eg.Female or Male,)",
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          hintText: 'Enter Your sex/Gender',
-                          hintStyle: const TextStyle(
-                            color: Colors.grey,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFF12A19A),
-                            ),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF12A19A),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20),
-                      TextFormField(
-                        controller: _age,
-                        keyboardType: TextInputType.number,
-                        onChanged: (value) {
-                          setState(() {
-                            _age.text = value;
-                          });
-                        },
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return '';
-                          }
-                          return null;
-                        },
-                        decoration: InputDecoration(
-                          label: const Text(
-                            "Age",
-                            style: TextStyle(
-                              color: Colors.grey,
-                            ),
-                          ),
-                          hintText: 'Enter Your Age',
-                          hintStyle: const TextStyle(
-                            color: Colors.grey,
-                          ),
-                          border: OutlineInputBorder(
-                            borderSide: const BorderSide(
-                              color: Color(0xFF12A19A),
-                            ),
-                            borderRadius: BorderRadius.circular(40),
-                          ),
-                          enabledBorder: const OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0xFF12A19A),
-                            ),
-                          ),
-                        ),
-                      ),
-                      const SizedBox(height: 20,),
+                      // Add other TextFormField widgets here
                       Container(
                         padding: EdgeInsets.all(6.0),
                         decoration: BoxDecoration(
-                          border: Border.all(color: Color(0xFF12A19A), width: 1),
-                          borderRadius: BorderRadius.circular(3)
+                          border: Border.all(color: const Color(0xFF12A19A), width: 1),
+                          borderRadius: BorderRadius.circular(3),
                         ),
                         child: DropdownButton(
                           dropdownColor: Colors.white,
                           isExpanded: true,
                           underline: SizedBox(),
                           value: valueChoose.isNotEmpty ? valueChoose : null,
-                          hint: const Text('Enter your role: ',
+                          hint: const Text(
+                            'Enter your role: ',
                             style: TextStyle(color: Colors.grey),
                           ),
-                            items: listItem.map((valueItem){
-                              return DropdownMenuItem(
-                                value: valueItem,
-                                child: Text(valueItem)
-                              );
-                            }
-                            ).toList(),
-                            onChanged: (newValue){
-                              setState(() {
-                                valueChoose = newValue.toString();
-                              });
-                            }),
+                          items: listItem.map((valueItem) {
+                            return DropdownMenuItem(
+                              value: valueItem,
+                              child: Text(valueItem),
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            setState(() {
+                              valueChoose = newValue.toString();
+                            });
+                          },
+                        ),
                       ),
                       const SizedBox(height: 20),
-
-                      const SizedBox(height: 20),
-                      const SizedBox(height: 20),
-
                       ElevatedButton(
                         onPressed: () {
                           _submitForm();
-                          print("register");
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => SecondPage()),
-                          );;
                         },
                         child: const Text(
                           'Notify Me',
                           style: TextStyle(
-                              fontSize: 20,
-                              fontWeight: FontWeight.bold,
-                              color: Color(0xFF12A19A)),
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Color(0xFF12A19A),
+                          ),
                         ),
                       ),
                     ],
                   ),
                 ),
-              ),
-            ),
-            const SizedBox(height: 20),
-            ClipRect(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Center(
-                    child: Text(
-                      'Follow us on social media:',
-                      style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 20),
-                    ),
-                  ),
-                  SizedBox(height: 8),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      IconButton(
-                        icon: Icon(Icons.facebook),
-                        onPressed: () {
-                          // Add your Facebook link here
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.email),
-                        onPressed: () {
-                          // Add your Email link here
-                        },
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.link),
-                        onPressed: () {
-                          // Add your LinkedIn link here
-                        },
-                      ),
-                    ],
-                  ),
-                ],
               ),
             ),
           ],
@@ -377,37 +171,31 @@ class _HomePageState extends State<HomePage> {
   Future<void> _submitForm() async {
     String name = _name.text;
     String email = _email.text;
-    int phoneNumber = int.parse(_phoneNumber.text);
-    String role = valueChoose;
-    String gender = _sex.text;
-    int age = int.parse(_age.text);
+    String phoneNumber = _phoneNumber.text;
+    String describeRole = _describRole.text;
+    String sex = _sex.text;
+    String age = _age.text;
 
-    // Update the API URL with your actual server URL
     String apiUrl = 'http://192.168.42.172:3000/registration/register';
 
-    // Construct the user data
-    Map<String, dynamic> userData = {
+    Map<String, String> userData = {
       'name': name,
       'email': email,
       'phoneNumber': phoneNumber,
-      'role': role,
-      'gender': gender,
+      'describeRole': describeRole,
+      'sex': sex,
       'age': age,
     };
 
-    // Convert the user data to JSON format
     String jsonData = jsonEncode(userData);
 
     try {
-      // Make a POST request to the NestJS API
       var response = await http.post(
         Uri.parse(apiUrl),
         headers: {'Content-Type': 'application/json'},
         body: jsonData,
-
       );
 
-      // Check if the request was successful (status code 200)
       if (response.statusCode == 200) {
         print('Registration successful');
         _name.clear();
@@ -417,7 +205,7 @@ class _HomePageState extends State<HomePage> {
         _sex.clear();
         _age.clear();
         setState(() {
-          valueChoose = ''; // Reset dropdown value
+          valueChoose = '';
         });
       } else {
         print('Error submitting form. Status code: ${response.statusCode}');

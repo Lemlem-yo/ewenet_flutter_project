@@ -1,7 +1,7 @@
-import 'package:arat_kilo/Screens/Home.dart';
 import 'package:arat_kilo/content_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'Screens/Home.dart';
 
 /*
    * SvgOrPngImage: Its statlesswidget
@@ -19,7 +19,7 @@ class SvgOrPngImage extends StatelessWidget {
     if (imagePath.toLowerCase().endsWith('.svg')) {
       return SvgPicture.asset(
         imagePath,
-        height: 200.0,
+        height: 100.0,
       );
     } else if (imagePath.toLowerCase().endsWith('.png')) {
       return Image.asset(
@@ -32,7 +32,6 @@ class SvgOrPngImage extends StatelessWidget {
   }
 }
 
-
 class Onbording extends StatefulWidget {
   const Onbording({super.key});
 
@@ -41,28 +40,25 @@ class Onbording extends StatefulWidget {
 }
 
 class _OnbordingState extends State<Onbording> {
-
 //
-int currentIndex = 0;
-late PageController _controller;
+  int currentIndex = 0;
+  late PageController _controller;
 
-@override
+  @override
   void initState() {
-
-    // TODO: implement initState
     super.initState();
     _controller = PageController(initialPage: 0);
   }
+
   //
   @override
   void dispose() {
-  _controller.dispose();
-    // TODO: implement dispose
+    _controller.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -82,7 +78,8 @@ late PageController _controller;
         child: Column(
           children: [
             Container(
-              height: MediaQuery.of(context).size.height / 1.3, // Adjust the height as needed
+              height: MediaQuery.of(context).size.height /
+                  1.3, // Adjust the height as needed
               child: PageView.builder(
                 controller: _controller,
                 itemCount: contents.length,
@@ -125,7 +122,7 @@ late PageController _controller;
                           contents[index].discription,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
-                            fontSize: 18,
+                            fontSize: 17,
                             color: Colors.grey,
                           ),
                         ),
@@ -135,11 +132,14 @@ late PageController _controller;
                 },
               ),
             ),
-            const SizedBox(height: 0,),
+            const SizedBox(
+              height: 0,
+            ),
             Container(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: List.generate(contents.length, (index) => buildDot(index, context)),
+                children: List.generate(
+                    contents.length, (index) => buildDot(index, context)),
               ),
             ),
             Container(
@@ -158,7 +158,9 @@ late PageController _controller;
                       MaterialPageRoute(builder: (_) => HomePage()),
                     );
                   }
-                  _controller.nextPage(duration: Duration(milliseconds: 100), curve: Curves.bounceIn);
+                  _controller.nextPage(
+                      duration: Duration(milliseconds: 100),
+                      curve: Curves.bounceIn);
                 },
                 child: Text(
                   currentIndex == contents.length - 1 ? "Continue" : "Next",
@@ -175,15 +177,15 @@ late PageController _controller;
     );
   }
 
-  Container buildDot( int index, BuildContext context) {
+  Container buildDot(int index, BuildContext context) {
     return Container(
-              height: 10,
-              width: currentIndex == index ? 25 : 10,
-              margin: EdgeInsets.only(right: 5),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Color(0xFF12A19A),
-              ),
-          );
+      height: 10,
+      width: currentIndex == index ? 25 : 10,
+      margin: EdgeInsets.only(right: 5),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: Color(0xFF12A19A),
+      ),
+    );
   }
 }
