@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
@@ -364,6 +364,9 @@ class _HomePageState extends State<HomePage> {
     String name = _name.text;
     String email = _email.text;
     String phoneNumber = _phonNumber.text;
+    String describeRole = _describrole.text;
+    String sex = _sex.text;
+    String age = _age.text;
     //
 
     String apiUrl = 'http://192.168.42.172:3000/registration/register';
@@ -371,7 +374,10 @@ class _HomePageState extends State<HomePage> {
     Map<String, String> userData = {
       'name': name,
       'email': email,
-      'phoneNUmber': phoneNumber
+      'phoneNumber': phoneNumber,
+      'describeRole': describeRole,
+      'sex': sex,
+      'age': age,
     };
     //Convert the user data to the JSON file
     String jsonData = jsonEncode(userData);
@@ -380,6 +386,7 @@ class _HomePageState extends State<HomePage> {
       //Make a post request to the nestjs API
       var response = await http.post(Uri.parse(apiUrl),
           headers: {'Content-Type': 'application/json'}, body: jsonData);
+      print(response);
     } catch (error) {
       print('Error submitting form: $error');
     }
