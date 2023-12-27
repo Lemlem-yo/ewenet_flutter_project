@@ -176,8 +176,13 @@ class _HomePageState extends State<HomePage> {
     String sex = _sex.text;
     String age = _age.text;
 
+<<<<<<< HEAD
     String apiUrl = 'http://192.168.42.172:3000/registration/register';
 
+=======
+    String apiUrl = 'http://192.168.100.183:3000/registration/register';
+    // construct the user data
+>>>>>>> ced26c6 (git pull)
     Map<String, String> userData = {
       'name': name,
       'email': email,
