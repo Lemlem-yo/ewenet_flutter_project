@@ -333,19 +333,20 @@ class _HomePageState extends State<HomePage> {
                       IconButton(
                         icon: Icon(Icons.facebook),
                         onPressed: () {
-                          // Add your Facebook link here
+                          'https://www.facebook.com/EwenetCommunicationPLC/';
                         },
                       ),
                       IconButton(
                         icon: Icon(Icons.email),
                         onPressed: () {
-                          // Add your Email link here
+                          'ewenetnet@gmail.com ';
+                          'ewenetmkt@gmail.com';
                         },
                       ),
                       IconButton(
                         icon: Icon(Icons.link),
                         onPressed: () {
-                          // Add your LinkedIn link here
+                          //  LinkedIn link here
                         },
                       ),
                     ],
